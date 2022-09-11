@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Ajout de catégorie";
+
+}
+
+@section Styles{
+    <link href="~/admin/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+
+}
+
+@section Content{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Ajout de catégorie</h4>
+                    <p class="sub-header">Remplissez tous les champs pour ajouter une catégorie</p>
+
+                    <div class="row">
+                        <form asp-action="AddCategorieMethode" method="post" asp-controller="Admin">
+                            <div class="col-md-6">
+                                <label class="mb-1 fw-medium text-muted">Libelle</label>
+                                <p class="text-muted font-13">
+                                    Le libelle de la catégorie
+                                </p>
+                                <input type="text" class="form-control" required name="Libelle" 
+                                placeholder="Saisissez le libelle de la catégorie"/>
+                                <div>
+                                    <label class="mb-1 mt-4 fw-medium text-muted">Description</label>
+                                    <p class="text-muted font-13">
+                                        La description de la catégorie. Ce champ peu être vide.
+                                    </p>
+                                    <input type="text" required name="Description" class="form-control"
+                                       placeholder="Saisissez la description de la catégorie"/>
+                                </div>
+                                <br/>
+
+                                <div class="col-xl-6 mt-xl-0 mt-50">
+                                    <div class="button-list">
+                                        <button type="submit" class="btn btn-success rounded-pill waves-effect waves-light">
+                                            <span class="btn-label"><i class="mdi mdi-check-all"></i></span>Valider
+                                        </button>
+                                        <button type="reset" class="btn btn-danger rounded-pill waves-effect waves-light">
+                                            <span class="btn-label"><i class="mdi mdi-close-circle-outline"></i></span>Annuler
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </form>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div>
+}
+
+    @section Scripts{
+    <script src="~/wwwroot/admin/libs/bootstrap_maxlength/bootstrap_maxlength.min.js"> </script>
+
+    
+}

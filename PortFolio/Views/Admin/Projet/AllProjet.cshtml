@@ -1,0 +1,159 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Tous les projets";
+    
+}
+
+@section Styles{
+    <link href="~/nice_select/css/nice-select.css" rel="stylesheet" type="text/css" />
+
+}
+
+@section Content{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Liste des différents projets</h4>
+                        <p class="text-muted font-14">
+                            Liste de vos différents projets.
+                        </p>
+                        <p class="text-muted font-14 d-flex align-items-end flex-column">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddProjectModal">Ajouter </button>
+                        </p>
+
+                        <table id="AllProjet" class="table table-striped table-hover table-bordered dt-responsive nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Libelle</th>
+                                    <th class="text-center">Description</th>
+                                    <th class="text-center">Lien</th>
+                                    <th class="text-center">Etat</th>
+                                    <th class="text-center">Catégorie</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.Projets)
+                                {   
+                                    <tr>
+                                        <td class="text-center text-truncate" style="max-width: 150px;">
+                                            @item.p.Name
+                                        </td>
+                                        <td class="text-center text-truncate" style="max-width: 150px;">
+                                            @item.p.Description
+                                        </td>
+                                        <td class="text-center text-truncate" style="max-width: 150px;">
+                                            <a>
+                                                <i class="fab fa-github">
+                                                @item.p.Lien
+                                                </i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center text-truncate" style="max-width: 150px;">
+                                            @switch (item.p.Etat)
+                                            {
+                                                case 0: 
+                                                    {
+                                                        <span class="badge bg-info rounded-pill">Nouveau</span>
+                                                    }
+                                                    break;
+                                                case 2: 
+                                                    {
+                                                        <span class="badge bg-success rounded-pill">Terminer</span>
+                                                    }
+                                                    break;
+                                                default:
+                                                        {
+                                                        <span class="badge bg-success rounded-pill">Nouveau</span>
+                                                        }
+                                                    break;
+                                            }
+                                            
+                                        </td>
+                                        <td class="text-center">@item.Libelle</td>
+                                        <td class="text-center d-flex justify-content-around" id="tooltip-container">
+                                            <a type="button" data-bs-toggle="tooltip" asp-action="ProjetDetails" asp-controller="Admin" asp-route-id=@item.p.Id
+                                       title="Voir @item.p.Name" data-bs-container="#tooltip-container" data-bs-placement="top"
+                                       class="btn btn-success waves-effect waves-light ml-5"><i class="fas fa-arrow-right"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="AddProjectModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <form class="px-3" asp-action="AddProjet" asp-controller="Admin" method="post">
+                        <div class="mb-3">
+                            <label for="Libelle" class="form-label">Libelle</label>
+                            <input class="form-control" type="text" id="Libelle" name="Libelle" required
+                            placeholder="Saisissez le libelle du projet">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Description" class="form-label">Description</label>
+                            <input class="form-control" type="text" name="Description" id="Description" required 
+                            placeholder="Saisissez la description du projet">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Lien" class="form-label">Lien du projet</label>
+                            <input class="form-control" type="text" value="" id="Lien" name="Lien" placeholder="Saisissez le lien du projet">
+                        </div>
+
+                        <div class="mb-3 d-flex justify-content-around">
+                            <select id="CategorieSelect" name="Categorie">
+                                @foreach (Categorie cat in ViewBag.Categories)
+                                {
+                                    <option value="@cat.Id">@cat.Libelle</option>
+                                }
+                            </select>
+                        </div>
+                        <br/>
+
+                        <br/>
+
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-primary" type="submit">Ajouter</button>
+                            <button class="btn btn-info" type="reset">Annuler</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+}
+
+@section Scripts {
+    <script src="~/nice_select/js/jquery.js"></script>
+    <script src="~/nice_select/js/jquery.nice-select.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#AllProjet').DataTable({
+                language: {
+                    url: "/DataTables/French.json"
+                },
+            });
+        });
+
+        $(document).ready(function () {
+            $('select').niceSelect();
+        });
+    </script>
+}
