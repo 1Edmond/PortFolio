@@ -32,7 +32,6 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-app.UseHsts();
 app.UseSession();
 app.UseMiddleware<AdminMiddleware>();
 
@@ -42,6 +41,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.MapControllerRoute(
     name: "default",
