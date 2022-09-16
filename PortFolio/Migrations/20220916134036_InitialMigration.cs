@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -13,12 +14,12 @@ namespace PortFolio.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Libelle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateAjout = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: DateTime.Now),
-                    Etat = table.Column<int>(type: "int", nullable: false, defaultValue : 0)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Libelle = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    DateAjout = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Etat = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,11 +30,11 @@ namespace PortFolio.Migrations
                 name: "Features",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Libelle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Etat = table.Column<int>(type: "int", nullable: false, defaultValue : 0),
-                    DateAjout = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Libelle = table.Column<string>(type: "text", nullable: true),
+                    Etat = table.Column<int>(type: "integer", nullable: false),
+                    DateAjout = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,11 +45,11 @@ namespace PortFolio.Migrations
                 name: "Settings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Etat = table.Column<int>(type: "int", nullable: false, defaultValue : 0)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    Etat = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,12 +60,12 @@ namespace PortFolio.Migrations
                 name: "Skills",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Completion = table.Column<int>(type: "int", nullable: false),
-                    Etat = table.Column<int>(type: "int", nullable: false, defaultValue : 0),
-                    SkillDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Completion = table.Column<int>(type: "integer", nullable: false),
+                    Etat = table.Column<int>(type: "integer", nullable: false),
+                    SkillDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,16 +76,16 @@ namespace PortFolio.Migrations
                 name: "Projets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateAjout = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: DateTime.Now),
-                    DateFin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Etat = table.Column<int>(type: "int", nullable: false, defaultValue : 0),
-                    CategorieId = table.Column<int>(type: "int", nullable: false),
-                    Lien = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    DateAjout = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DateFin = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Etat = table.Column<int>(type: "integer", nullable: false),
+                    CategorieId = table.Column<int>(type: "integer", nullable: false),
+                    Lien = table.Column<string>(type: "text", nullable: true),
+                    Note = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,10 +102,10 @@ namespace PortFolio.Migrations
                 name: "ProjetFeature",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FeatureId = table.Column<int>(type: "int", nullable: false),
-                    ProjetId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FeatureId = table.Column<int>(type: "integer", nullable: false),
+                    ProjetId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,14 +128,14 @@ namespace PortFolio.Migrations
                 name: "Ressources",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Libelle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Lien = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Etat = table.Column<int>(type: "int", nullable: false, defaultValue : 0),
-                    DateAjout = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: DateTime.Now),
-                    ProjetId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Libelle = table.Column<string>(type: "text", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    Lien = table.Column<string>(type: "text", nullable: true),
+                    Etat = table.Column<int>(type: "integer", nullable: false),
+                    DateAjout = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ProjetId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,6 +11,7 @@ public static class Constants
     public static List<string> AuthorizedRoute { get => new()
     {
         "/",
+        "",
         "/admin/logout",
         "/Auth/Login",
         "/admin",

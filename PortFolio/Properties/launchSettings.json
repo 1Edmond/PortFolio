@@ -21,7 +21,8 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "DATABASE_URL": "postgres://ruzpbayvzivepc:9a9b575d2d22c623fcb3be1bec620f8d570706b9e2d775903290447b9343dfbb@ec2-23-20-140-229.compute-1.amazonaws.com:5432/dddarqseaeo494"
       }
     }
   }
