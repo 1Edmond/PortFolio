@@ -1,0 +1,218 @@
+﻿@model Projet
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = $"Modification du projet {Model.Name}";
+}
+
+@section Styles{
+    <link href="~/nice_select/css/nice-select.css" rel="stylesheet" type="text/css" />
+    <link href="~/MySelect/demo-styles.css" rel="stylesheet" type="text/css" />
+    <link href="~/admin/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <link href="~/MySelect/example-styles.css" rel="stylesheet" type="text/css" />
+}
+
+@section Content{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="UpdateProjetMethode" id="Form" asp-controller="Admin" method="post">
+                            <div id="basicwizard">
+                                <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-4">
+                                    <li class="nav-item">
+                                        <a href="#basictab1" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                            <i class="mdi mdi-account-circle me-1"></i>
+                                            <span class="d-none d-sm-inline">Information</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#basictab3" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                            <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>
+                                            <span class="d-none d-sm-inline">Fonctionnalités</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content b-0 mb-0 pt-0">
+                                    <div class="tab-pane" id="basictab1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row mb-3" hidden>
+                                                    <label class="col-md-3 col-form-label" for="Id">Id</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="Id" name="Id" value="@Model.Id">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="userName">Libelle</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="userName" name="Name" value="@Model.Name">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="password"> Description</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="password" name="Description" class="form-control" value="@Model.Description">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="confirm">Lien</label>
+                                                    <div class="col-md-9">
+                                                        <input type="url" id="confirm" name="Lien" class="form-control" value="@Model.Lien">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="Note">Note</label>
+                                                    <div class="col-md-9">
+                                                        <input type="url" id="Note" name="Note" class="form-control" value="@Model.Note">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="categorie">Catégorie</label>
+                                                    
+                                                    <div class="col-md-9">
+                                                        <select multiple id="CategorieSelect" name="Categorie">
+                                                            @foreach (Categorie cat in ViewBag.Categorie)
+                                                            {
+                                                                if (cat.Id == Model.CategorieId)
+                                                                {
+                                                                    <option value="@cat.Id" selected >@cat.Libelle</option>
+                                                                }
+                                                                else{
+                                                                    <option value="@cat.Id" >@cat.Libelle</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end col -->
+                                        </div> <!-- end row -->
+
+                                    </div>
+                                    <div class="tab-pane mb-2" id="basictab3">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body taskboard-box">
+                                                        <h4 class="header-title mt-0 mb-3 text-primary">Les différentes fonctionnalités</h4>
+
+                                                        <ul class="list chat-list justify-content-center list-unstyled taskList" style="max-height: 413px;" data-simplebar>
+                                                            @{
+                                                                var projetFeatures = ViewBag.ListFeatures as List<int>;
+                                                            }
+                                                            @foreach (Feature item in ViewBag.AllFeatures)
+                                                            {
+                                                                var checkId = $"CheckId{item.Id}";
+                                                                <li>
+                                                                    <div class="kanban-box">
+                                                                        <div class="checkbox-wrapper float-start">
+                                                                            <div class="form-check form-check-success">
+                                                                                @if (projetFeatures.Contains(item.Id))
+                                                                                {
+                                                                                    <input class="form-check-input" type="checkbox" id="@checkId"
+                                                                                        checked onchange="Verification(@item.Id)">
+                                                                                    <label></label>
+                                                                                    
+                                                                                }else{
+
+                                                                                    <input class="form-check-input" onchange="Verification(@item.Id)" type="checkbox" id="@checkId">
+                                                                                    <label></label>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="kanban-detail">
+                                                                            <h5>
+                                                                                <a class="text-dark">
+                                                                                  @item.Libelle
+                                                                                </a>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        <ul class="list-inline wizard mb-0">
+                                            <li class="previous list-inline-item">
+                                                <a href="javascript: void(0);" class="btn btn-secondary">Précédent</a>
+                                            </li>
+                                            <li class="next list-inline-item float-end">
+                                                <a href="javascript: void(0);" class="btn btn-secondary">Suivant</a>
+                                            </li>
+                                        </ul>
+                                    
+                                </div> <!-- tab-content -->
+                            </div> <!-- end #basicwizard-->
+                            <div hidden>
+                                <select name="Features[]" multiple>
+                                @foreach (Feature feature in ViewBag.AllFeatures)
+                                {
+                                    var option = $"Option{feature.Id}";
+                                    if(projetFeatures.Contains(feature.Id)){
+                                        <option selected  id="@option" value="@feature.Id">@feature.Libelle </option>
+                                    }else{
+                                        <option id="@option" value="@feature.Id">@feature.Libelle </option>
+                                    }
+                                }
+                                </select>
+                            </div>
+                        </form>
+                        <div class="text-center mt-5">
+                            <button onclick="ValidationForm()" class="btn btn-success waves-effect waves-light">Modifier</button>
+                        </div>
+                    </div> <!-- end card-body -->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+        </div>
+     </div>
+}
+
+@section Scripts{
+    <script src="~/admin/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/admin/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="~/admin/js/pages/gallery.init.js"></script>
+
+            <!-- Init js-->
+    <script src="~/admin/js/pages/form-wizard.init.js"></script>
+    <script src="~/nice_select/js/jquery.nice-select.js"></script>
+    <script src="~/MySelect/jquery.multi-select.js"></script>
+    <!-- Gallery Init-->
+
+    <script>
+        $(document).ready(function () {
+            $('#CategorieSelect').niceSelect();
+            $('#FonctionnalitesSelect').multiSelect({
+                'modalHTML': '<div class="multi-select-modal">'
+            });
+            $('#RessourcesSelect').multiSelect({
+                'modalHTML': '<div class="multi-select-modal">'
+            });
+        });
+
+        function Verification(id){
+            var input = document.getElementById("CheckId"+id);
+            if(input.checked){
+                document.getElementById("Option"+id).setAttribute("selected","true");
+            }else{
+                document.getElementById("Option"+id).removeAttribute("selected");
+            }
+        
+        }
+
+
+        function ValidationForm(){
+            document.getElementById("Form").submit();
+        }
+      
+    </script>
+}

@@ -11,11 +11,21 @@ public class HomeController : Controller
         _context = context;
     }
 
+
+    [HttpGet]
     [Route("/")]
     public IActionResult Index()
     {
-       
+        LoadSetting();
         return View();
+    }
+    
+    [HttpGet]
+    [Route("/errorView")]
+    public IActionResult Error()
+    {
+        var Error = JsonConvert.DeserializeObject<CustomError>(HttpContext.Session.GetString("ErrorMessage"));
+        return View("../CustomErrorView",Error);
     }
 
     [HttpGet]
@@ -51,6 +61,22 @@ public class HomeController : Controller
         };
 
     }
-       
-    
+
+
+    public void LoadSetting()
+    {
+        var temp = new List<string>()
+            {
+                "Name",
+            };
+        var settings = _context.Settings.Where(s => temp.Contains(s.Name)).ToList();
+        var data = new Dictionary<string, string>();
+        settings.ForEach(s =>
+        {
+            data[s.Name] = s.Value;
+        });
+        ViewBag.CustomSetting = data;
+    }
+
+
 }

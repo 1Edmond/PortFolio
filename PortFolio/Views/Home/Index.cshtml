@@ -2,17 +2,22 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Dictionary<string, string> data = null;
+    if (ViewBag.CustomSetting != null)
+        data = ViewBag.CustomSetting as Dictionary<string, string>;
     Layout = "";
 }
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 
 <!-- Mirrored from rainbowit.net/html/inbio/index-developer-white-version.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Sep 2022 12:13:40 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Honyiglo Wilfried</title>
+    <title>@data["Name"]</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,8 +58,8 @@
                         <ul class="primary-menu nav nav-pills">
                             <li class="nav-item current"><a class="nav-link smoth-animation" href="#home">Accueil</a></li>
                           <!--  <li class="nav-item" a class="nav-link smoth-animation" href="#experiences">Experience</a></li> -->
-                           @* <li class="nav-item"><a class="nav-link smoth-animation" href="#educations">Education</a></li>*@
-                            <li class="nav-item"><a class="nav-link smoth-animation" href="#resume">Education</a></li>
+                            <li class="nav-item"><a class="nav-link smoth-animation" href="#educations">Serivices</a></li>
+                            <li class="nav-item"><a class="nav-link smoth-animation" href="#resume">Parcours</a></li>
                             <li class="nav-item"><a class="nav-link smoth-animation" href="#portfolio">Projets</a></li>
                             <li class="nav-item"><a class="nav-link smoth-animation" href="#contact">Contact</a></li>
                            
@@ -98,13 +103,12 @@
             </div>
             <div class="content">
                 <ul class="primary-menu nav nav-pills onepagenav">
-                    <li class="nav-item current"><a class="nav-link smoth-animation" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link smoth-animation" href="#experiences">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link smoth-animation" href="#educations">Education</a></li>
-                    <li class="nav-item"><a class="nav-link smoth-animation" href="#resume">Resume</a></li>
-                    <li class="nav-item"><a class="nav-link smoth-animation" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link smoth-animation" href="#blog">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link smoth-animation" href="#footer">Footer</a></li>
+                    <li class="nav-item current"><a class="nav-link smoth-animation" href="#home">Accueil</a></li>
+                          <!--  <li class="nav-item" a class="nav-link smoth-animation" href="#experiences">Experience</a></li> -->
+                            <li class="nav-item"><a class="nav-link smoth-animation" href="#educations">Services</a></li>
+                            <li class="nav-item"><a class="nav-link smoth-animation" href="#resume">Parcours</a></li>
+                            <li class="nav-item"><a class="nav-link smoth-animation" href="#portfolio">Projets</a></li>
+                            <li class="nav-item"><a class="nav-link smoth-animation" href="#contact">Contact</a></li>
                 </ul>
                 <!-- social sharea area -->
                 <div class="social-share-style-1 mt--40">
@@ -151,7 +155,7 @@
                                                     <i data-feather="user"></i>
                                                 </div>
                                                 <h2 class="title">
-                                                    Salut je suis <span>Wilfried</span>
+                                                    Salut je suis <span>@data["Name"][data["Name"].IndexOf(" ")..]</span>
                                                 </h2>
                                                 <p class="disc">Jeune développeur dynamique et copétant au résidant au TOGO.</p>
                                             </div>
@@ -296,13 +300,12 @@
         <!-- End Experience area -->
 
         <!-- Start education section -->
-       @* <div id="educations" class="rn-education-area rn-section-gap section-separator">
+        <div id="educations" class="rn-education-area rn-section-gap section-separator">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-center">
-                            <span class="subtitle">Phd, Master and Bachelo</span>
-                            <h2 class="title">Education</h2>
+                            <h2 class="title">Services</h2>
                         </div>
                     </div>
                 </div>
@@ -315,7 +318,6 @@
                                     <img src="~/images/portfolio/portfolio-04.jpg" alt="Personal Portfolio">
                                 </div>
                                 <div class="experience-center">
-                                    <span class="date">2015-Present</span>
                                     <h4 class="experience-title">
                                         Software Develop.
                                     </h4>
@@ -327,32 +329,7 @@
                             </div>
                             <div class="experience-right">
                                 <div class="experience-footer">
-                                    <a class="rn-btn" href="#contacts"><span>CONTACT ME</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single skills -->
-
-                        <!-- single skills -->
-                        <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="200" data-aos-once="true" class="experience-style-two">
-                            <div class="experience-left">
-                                <div class="experience-image">
-                                    <img src="~/images/portfolio/portfolio-05.jpg" alt="Personal Portfolio">
-                                </div>
-                                <div class="experience-center">
-                                    <span class="date">2015-Present</span>
-                                    <h4 class="experience-title">
-                                        Web Design.
-                                    </h4>
-                                    <h6 class="subtitle">
-                                        Co-Founder, Web Designer & Developer
-                                    </h6>
-                                    <p class="disc">Reinvetning the way you create websites</p>
-                                </div>
-                            </div>
-                            <div class="experience-right">
-                                <div class="experience-footer">
-                                    <a class="rn-btn" href="#contacts"><span>CONTACT ME</span></a>
+                                    <a class="rn-btn" href="#contact"><span>Me contacter</span></a>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +337,7 @@
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div>
         <!-- End education section -->
 
         <!-- Start Resume Area -->

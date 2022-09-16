@@ -1,5 +1,247 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Ressource>
+
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Toutes les ressources";
+
+}
+
+
+@section Styles{
+   <link href="~/admin/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <link href="~/nice_select/css/nice-select.css" rel="stylesheet" type="text/css" />
+
+
+}
+
+@section Content{
+    <div class="container-fluid">
+        <p class="text-muted font-14 d-flex align-items-end flex-column">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddRessourceModal">Ajouter </button>
+        </p>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="portfolioFilter">
+                    <a href="#" data-filter="*" class="current waves-effect waves-primary">Tous</a>
+                    @foreach (Projet item in ViewBag.Projets)
+                    {
+                        <a href="#" data-filter=".@item.Name.Replace(' ','_')" class="waves-effect waves-primary">@item.Name</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="port mb-2">
+            <div class="row portfolioContainer">
+                @foreach (var ressource in ViewBag.Ressources)
+                {
+
+                    <div class="col-xl-3 col-lg-4 col-md-6 @ressource.Name.Replace(' ','_')" id="tooltip-container">
+                        <div class="gal-detail thumb text-center">
+                            <a href="@ressource.r.Lien" class="image-popup" title="@ressource.Name">
+                                <img src="@ressource.r.Lien" width="120" class="thumb-img img-fluid" alt="@ressource.Name">
+                            </a>
+                            <div class="text-center">
+                                <h4>@ressource.Name</h4>
+                                <p class="font-13 text-muted mb-2">@ressource.Libelle</p>
+                                <button type="button" data-bs-toggle="tooltip" onclick="ShowUpdateModal(@ressource.r.Id,'@ressource.r.Libelle','@ressource.r.Type','@ressource.r.Lien','@ressource.r.ProjetId')"
+                               title="Modifier @ressource.Name" data-bs-container="#tooltip-container" data-bs-placement="top"
+                               class="btn btn-info waves-effect waves-light ml-5">
+                                    <i class="fe-disc"></i>
+                                </button>
+                                <button type="button" data-bs-toggle="tooltip" onclick="ShowDeleteModal(@ressource.r.Id,'@ressource.r.Libelle')"
+                               title="Supprimer @ressource.r.Libelle" data-bs-container="#tooltip-container" data-bs-placement="left"
+                               class="btn btn-danger waves-effect waves-light ml-5">
+                                    <i class="mdi mdi-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- end portfoliocontainer-->
+        </div> <!-- End row -->
+
+    </div>
+    
+    
+<div id="AddRessourceModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form class="px-3" asp-action="AddRessoruce" asp-controller="Admin" method="post">
+                    <div class="mb-3">
+                        <label for="Libelle" class="form-label">Libelle</label>
+                        <input class="form-control" type="text" id="Libelle" name="Libelle" required
+                            placeholder="Saisissez le libelle de la ressource">
+                    </div>
+
+                        <div class="mb-3 d-flex justify-content-around">
+                            <label for="TypeSelect" class="form-label mt-1">Type</label>
+                            <select id="TypeSelect" name="Type">
+                                @foreach (KeyValuePair<string,string> type in Constants.Types)
+                                {
+                                    <option value="@type.Key">@type.Value</option>
+                                }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Lien" class="form-label">Lien de la ressource</label>
+                        <input class="form-control" type="text" value="" id="Lien" name="Lien" placeholder="Saisissez le lien de la ressource">
+                    </div>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <label for="CategorieSelect" class="form-label mt-1">Projet</label>
+                        <select id="CategorieSelect" name="Projet">
+                            @foreach (Projet cat in ViewBag.Projets)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <br />
+
+                    <br />
+
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-primary" type="submit">Ajouter</button>
+                        <button class="btn btn-info" data-bs-dismiss="modal" type="reset">Annuler</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+    
+<div id="UpdateRessourceModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form class="px-3" asp-action="UpdateRessource" asp-controller="Admin" method="post">
+                    <div class="mb-3" hidden>
+                        <label for="UpdateLibelle" class="form-label">Id</label>
+                        <input class="form-control" type="text" id="UpdateId" name="Id" required
+                            placeholder="Saisissez le libelle de la ressource">
+                    </div>
+                    <div class="mb-3">
+                        <label for="UpdateLibelle" class="form-label">Libelle</label>
+                        <input class="form-control" type="text" id="UpdateLibelle" name="Libelle" required
+                            placeholder="Saisissez le libelle de la ressource">
+                    </div>
+
+                    <div class="mb-3 d-flex justify-content-around">
+                            <label for="UpdateTypeSelect" class="form-label mt-1">Type</label>
+                            <select id="UpdateTypeSelect" name="Type">
+                                @foreach (KeyValuePair<string, string> type in Constants.Types)
+                                {
+                                    <option value="@type.Key">@type.Value</option>
+                                }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                            <label for="UpdateLien" class="form-label">Lien de la ressource</label>
+                            <input class="form-control" type="text" value="" id="UpdateLien" name="Lien" placeholder="Saisissez le lien de la ressource">
+                    </div>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <label for="UpdateProjetSelect" class="form-label mt-1">Projet</label>
+                        <select id="UpdateProjetSelect" name="Projet">
+                            @foreach (Projet cat in ViewBag.Projets)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <br />
+
+                    <br />
+
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-primary" type="submit">Modifier</button>
+                        <button class="btn btn-info" data-bs-dismiss="modal" type="reset">Annuler</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+ 
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-danger">
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="dripicons-wrong h1 text-white"></i>
+                    <h4 class="mt-2 text-white">Confirmer la suppression</h4>
+                    <p class="mt-3 text-white" id="SuppressionInfo">
+                        Voulez-vous vraiment supprimer le projet 
+                    </p>
+                        <a href="/admin/ressources/delete" id="SuppressionA"
+                        type="button" class="btn btn-light my-2">Oui</a>
+                    <button type="button" class="btn btn-info my-2" data-bs-dismiss="modal">Non</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+}
+
+    @section Scripts {
+
+    <script src="~/admin/libs/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <!-- Magnific Popup-->
+    <script src="~/admin/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="~/admin/js/pages/gallery.init.js"></script>
+    <script src="~/nice_select/js/jquery.nice-select.js"></script>
+
+    <script src="~/js/vendor/bootstrap.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).ready(function () {
+                $('select').niceSelect();
+            });
+        });
+
+        function ShowDeleteModal(id, name){
+            document.getElementById("SuppressionInfo").innerHTML = "Voulez-vous vraiment supprimer l'image ";
+            var temp = document.getElementById("SuppressionInfo").innerHTML;
+            document.getElementById("SuppressionInfo").innerHTML = temp + name + "?";
+            var href = document.getElementById("SuppressionA").getAttribute("href");
+            href = href + "/" + id;
+            document.getElementById("SuppressionA").setAttribute("href", href);
+            $('#deleteModal').modal('show');
+
+        }
+
+
+        function ShowUpdateModal(id, name, type, lien, projet){
+            FillData(id, name, type, lien, projet);
+            $('#UpdateRessourceModal').modal('show');
+        }
+
+        function FillData(id, name, type, lien, projet){
+            document.getElementById("UpdateId").setAttribute("value", id);
+            document.getElementById("UpdateLibelle").setAttribute("value", name);
+            document.getElementById("UpdateLien").setAttribute("value", lien);
+            document.getElementById("UpdateTypeSelect").value = type;
+            document.getElementById("UpdateProjetSelect").value = projet;
+            $('select').niceSelect('update');
+        }
+
+    </script>
+
+
 }

@@ -22,8 +22,11 @@ public class Projet
     public int CategorieId { get; set; }
 
     public string Lien { get; set; } = string.Empty;
-    public List<Feature> Features  { get; set; }
+    public List<ProjetFeature> ProjetFeatures  { get; set; }
     public List<Ressource> Ressources { get; set; }
+
+    [DefaultValue("")]
+    public string Note { get; set; }
 
 
 }

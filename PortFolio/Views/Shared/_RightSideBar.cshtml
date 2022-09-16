@@ -6,7 +6,7 @@
             <a href="javascript:void(0);" class="right-bar-toggle float-end">
                 <i class="mdi mdi-close"></i>
             </a>
-            <h4 class="font-16 m-0 text-white">Theme Customizer</h4>
+            <h4 class="font-16 m-0 text-white">Personnalisation</h4>
         </div>
 
         <!-- Tab panes -->
@@ -15,25 +15,21 @@
             <div class="tab-pane active" id="settings-tab" role="tabpanel">
 
                 <div class="p-3">
-                    <div class="alert alert-warning" role="alert">
-                        <strong>Customize </strong> the overall color scheme, Layout, etc.
-                    </div>
-
-                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Color Scheme</h6>
+                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Couleur</h6>
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="layout-color" value="light"
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="layout-color" value="light"
                                id="light-mode-check" checked />
-                        <label class="form-check-label" for="light-mode-check">Light Mode</label>
+                        <label class="form-check-label" for="light-mode-check">Mode clair</label>
                     </div>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="layout-color" value="dark"
+                        <input type="checkbox" onchange="UpdateInput(this)"  class="form-check-input" name="layout-color" value="dark"
                                id="dark-mode-check" />
-                        <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
+                        <label class="form-check-label" for="dark-mode-check">Mode sombre</label>
                     </div>
 
-                    <!-- Width -->
-                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Width</h6>
+                    @*<!-- Width -->
+                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Long</h6>
                     <div class="form-check form-switch mb-1">
                         <input type="checkbox" class="form-check-input" name="layout-size" value="fluid" id="fluid" checked />
                         <label class="form-check-label" for="fluid-check">Fluid</label>
@@ -57,83 +53,90 @@
                                id="scrollable-check" />
                         <label class="form-check-label" for="scrollable-check">Scrollable</label>
                     </div>
-
+*@
                     <!-- Left Sidebar-->
-                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Left Sidebar Color</h6>
+                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Couleur de la nav bar</h6>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="leftbar-color" value="light" id="light" />
-                        <label class="form-check-label" for="light-check">Light</label>
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="leftbar-color" value="light" id="light" />
+                        <label class="form-check-label" for="light-check">Blanc</label>
                     </div>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="leftbar-color" value="dark" id="dark" checked />
-                        <label class="form-check-label" for="dark-check">Dark</label>
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="leftbar-color" value="dark" id="dark" checked />
+                        <label class="form-check-label" for="dark-check">Noir</label>
                     </div>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="leftbar-color" value="brand" id="brand" />
-                        <label class="form-check-label" for="brand-check">Brand</label>
+                        <input type="checkbox" onchange="UpdateInput(this)" checked class="form-check-input" name="leftbar-color" value="brand" id="brand" />
+                        <label class="form-check-label" for="brand-check">Bleu</label>
                     </div>
 
                     <div class="form-check form-switch mb-3">
-                        <input type="checkbox" class="form-check-input" name="leftbar-color" value="gradient" id="gradient" />
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="leftbar-color" value="gradient" id="gradient" />
                         <label class="form-check-label" for="gradient-check">Gradient</label>
                     </div>
 
                     <!-- size -->
-                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Left Sidebar Size</h6>
+                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Epaisseur de la nav bar</h6>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="leftbar-size" value="default"
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="leftbar-size" value="default"
                                id="default-size-check" checked />
-                        <label class="form-check-label" for="default-size-check">Default</label>
+                        <label class="form-check-label" for="default-size-check">Défaut</label>
                     </div>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="leftbar-size" value="condensed"
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="leftbar-size" value="condensed"
                                id="condensed-check" />
-                        <label class="form-check-label" for="condensed-check">Condensed <small>(Extra Small size)</small></label>
+                        <label class="form-check-label" for="condensed-check">Rétracté<small>(Extra Small size)</small></label>
                     </div>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="leftbar-size" value="compact"
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="leftbar-size" value="compact"
                                id="compact-check" />
-                        <label class="form-check-label" for="compact-check">Compact <small>(Small size)</small></label>
+                        <label class="form-check-label" for="compact-check">Compacte<small>(Small size)</small></label>
                     </div>
 
                     <!-- User info -->
-                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Sidebar User Info</h6>
+                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Info utilisateur</h6>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="sidebar-user" value="true" id="sidebaruser-check" />
-                        <label class="form-check-label" for="sidebaruser-check">Enable</label>
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="sidebar-user" value="true" id="sidebaruser-check" />
+                        <label class="form-check-label" for="sidebaruser-check">Activer</label>
                     </div>
 
 
                     <!-- Topbar -->
-                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Topbar</h6>
+                    <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Entête</h6>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="topbar-color" value="dark" id="darktopbar-check"
-                               checked />
-                        <label class="form-check-label" for="darktopbar-check">Dark</label>
+                        <input type="checkbox" onchange="UpdateInput(this)" class="form-check-input" name="topbar-color" value="dark" id="darktopbar-check"
+                                />
+                        <label class="form-check-label" for="darktopbar-check">Noir</label>
                     </div>
 
                     <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="topbar-color" value="light" id="lighttopbar-check" />
-                        <label class="form-check-label" for="lighttopbar-check">Light</label>
+                        <input type="checkbox" onchange="UpdateInput(this)" checked class="form-check-input" name="topbar-color" value="light" id="lighttopbar-check" />
+                        <label class="form-check-label" for="lighttopbar-check">Blanc</label>
                     </div>
 
                     <div class="d-grid mt-4">
-                        <button class="btn btn-primary" id="resetBtn">Reset to Default</button>
-                        <a href="https://1.envato.market/admintoadmin" class="btn btn-danger mt-3" target="_blank"><i class="mdi mdi-basket me-1"></i> Purchase Now</a>
+                        <button class="btn btn-success mt-3" onclick="Validate()"><i class="mdi mdi-heart-half-full me-1"></i>Sauvegarder </button>
                     </div>
 
                 </div>
+               @* <form asp-action="SaveSettings" hidden asp-controller="Admin" id="MyCustomForm">
+                    <input name="Color"  id="MyColor" />
+                    <input name="NavColor" id="MyNavColor" />
+                    <input name="NavWidth" id="MyNavWidth" />
+                    <input name="UserInfo" id="MyUserInfo" />
+                    <input name="Head" id="MyHead" />
+                </form>*@
 
+
+               
             </div>
         </div>
-
     </div> <!-- end slimscroll-menu-->
 </div>

@@ -12,8 +12,8 @@ using PortFolio.Data;
 namespace PortFolio.Migrations
 {
     [DbContext(typeof(PortFolioContext))]
-    [Migration("20220910145417_AddForeignKeyProjetCategorie")]
-    partial class AddForeignKeyProjetCategorie
+    [Migration("20220915152029_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,18 +58,16 @@ namespace PortFolio.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("DateAjout")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Etat")
                         .HasColumnType("int");
 
                     b.Property<string>("Libelle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjetId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjetId");
 
                     b.ToTable("Features");
                 });
@@ -103,11 +101,37 @@ namespace PortFolio.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategorieId");
 
                     b.ToTable("Projets");
+                });
+
+            modelBuilder.Entity("PortFolio.Models.ProjetFeature", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FeatureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeatureId");
+
+                    b.HasIndex("ProjetId");
+
+                    b.ToTable("ProjetFeature");
                 });
 
             modelBuilder.Entity("PortFolio.Models.Ressource", b =>
@@ -124,11 +148,17 @@ namespace PortFolio.Migrations
                     b.Property<int>("Etat")
                         .HasColumnType("int");
 
+                    b.Property<string>("Libelle")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Lien")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProjetId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -159,15 +189,29 @@ namespace PortFolio.Migrations
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("PortFolio.Models.Feature", b =>
+            modelBuilder.Entity("PortFolio.Models.Skill", b =>
                 {
-                    b.HasOne("PortFolio.Models.Projet", "Projet")
-                        .WithMany("Features")
-                        .HasForeignKey("ProjetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Navigation("Projet");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Completion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Etat")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SkillDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("PortFolio.Models.Projet", b =>
@@ -181,6 +225,25 @@ namespace PortFolio.Migrations
                     b.Navigation("Categorie");
                 });
 
+            modelBuilder.Entity("PortFolio.Models.ProjetFeature", b =>
+                {
+                    b.HasOne("PortFolio.Models.Feature", "Feature")
+                        .WithMany("ProjetFeature")
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortFolio.Models.Projet", "Projet")
+                        .WithMany("ProjetFeatures")
+                        .HasForeignKey("ProjetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Feature");
+
+                    b.Navigation("Projet");
+                });
+
             modelBuilder.Entity("PortFolio.Models.Ressource", b =>
                 {
                     b.HasOne("PortFolio.Models.Projet", "Projet")
@@ -192,9 +255,14 @@ namespace PortFolio.Migrations
                     b.Navigation("Projet");
                 });
 
+            modelBuilder.Entity("PortFolio.Models.Feature", b =>
+                {
+                    b.Navigation("ProjetFeature");
+                });
+
             modelBuilder.Entity("PortFolio.Models.Projet", b =>
                 {
-                    b.Navigation("Features");
+                    b.Navigation("ProjetFeatures");
 
                     b.Navigation("Ressources");
                 });

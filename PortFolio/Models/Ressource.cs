@@ -5,6 +5,11 @@ public class Ressource
 {
     [Key]
     public int Id { get; set; }
+
+    public string Libelle { get; set; } = string.Empty;
+
+    public string Type { get; set; } = string.Empty;
+
     public string Lien { get; set; } = string.Empty;
     [DefaultValue(0)]
     public int Etat { get; set; }

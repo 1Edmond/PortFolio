@@ -48,11 +48,20 @@
                                             @item.p.Description
                                         </td>
                                         <td class="text-center text-truncate" style="max-width: 150px;">
-                                            <a>
-                                                <i class="fab fa-github">
-                                                @item.p.Lien
-                                                </i>
-                                            </a>
+
+                                        @if (item.p.Lien != "")
+                                            {
+                                                <a href="@item.p.Lien" title="@item.p.Lien"
+                                       data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <i class="fab fa-github">
+                                                    </i>
+                                                </a>
+                                            }else{
+                                                 <a>
+                                                    <i class="fab fa-github">
+                                                    </i>
+                                                </a>
+                                            }
                                         </td>
                                         <td class="text-center text-truncate" style="max-width: 150px;">
                                             @switch (item.p.Etat)
@@ -78,8 +87,14 @@
                                         <td class="text-center">@item.Libelle</td>
                                         <td class="text-center d-flex justify-content-around" id="tooltip-container">
                                             <a type="button" data-bs-toggle="tooltip" asp-action="ProjetDetails" asp-controller="Admin" asp-route-id=@item.p.Id
-                                       title="Voir @item.p.Name" data-bs-container="#tooltip-container" data-bs-placement="top"
-                                       class="btn btn-success waves-effect waves-light ml-5"><i class="fas fa-arrow-right"></i></a>
+                                               title="Voir @item.p.Name" data-bs-container="#tooltip-container" data-bs-placement="top"
+                                               class="btn btn-info waves-effect waves-light ml-5"><i class="fas fa-arrow-right"></i>
+                                            </a>
+                                            <a type="button" data-bs-toggle="tooltip" asp-action="ValidateProjet" asp-controller="Admin" asp-route-id=@item.p.Id
+                                               title="Valider @item.p.Name" data-bs-container="#tooltip-container" data-bs-placement="left"
+                                                class="btn btn-success waves-effect waves-light ml-5">
+                                                <i class="mdi mdi-check-all"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -113,6 +128,11 @@
                             <label for="Lien" class="form-label">Lien du projet</label>
                             <input class="form-control" type="text" value="" id="Lien" name="Lien" placeholder="Saisissez le lien du projet">
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="Note" class="form-label">Note concernant le projet</label>
+                            <input class="form-control" type="text" value="" id="Note" name="Note" placeholder="Saisissez une note concernant le projet">
+                        </div>
 
                         <div class="mb-3 d-flex justify-content-around">
                             <select id="CategorieSelect" name="Categorie">
@@ -128,7 +148,7 @@
 
                         <div class="mb-3 text-center">
                             <button class="btn btn-primary" type="submit">Ajouter</button>
-                            <button class="btn btn-info" type="reset">Annuler</button>
+                            <button class="btn btn-info" type="reset" data-bs-dismiss="modal">Annuler</button>
                         </div>
 
                     </form>

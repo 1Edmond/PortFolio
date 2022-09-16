@@ -9,7 +9,6 @@ global using Microsoft.AspNetCore.Mvc;
 global using PortFolio.Models;
 global using Newtonsoft.Json;
 global using System.Text;
-
 // global
 // global
 // global

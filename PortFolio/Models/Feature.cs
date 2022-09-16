@@ -7,10 +7,10 @@ public class Feature
     public string Libelle { get; set; } = string.Empty;
     [DefaultValue(0)]
     public int Etat { get; set; }
-    public Projet Projet { get; set; }
 
-    [ForeignKey(nameof(Projet))]
-    public int ProjetId { get; set; }
+    public DateTime DateAjout { get; set; }
+
+    public List<ProjetFeature> ProjetFeatures { get; set; }
 
 
 

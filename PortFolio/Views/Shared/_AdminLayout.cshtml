@@ -5,7 +5,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Adminto - Responsive Admin Dashboard Template</title>
+    <title>@ViewData["Title"]</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -27,6 +27,7 @@
 
 <!-- body start -->
 <body class="loading" data-layout-color="light" data-layout-mode="default" data-layout-size="fluid" data-topbar-color="light" data-leftbar-position="fixed" data-leftbar-color="light" data-leftbar-size='default' data-sidebar-user='true'>
+
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -106,20 +107,176 @@
     <script src="~/notification/growl-notification.min.js"></script>
     <script src="~/DataTables/datatables.min.js"></script>
 
+   @* @if (ViewBag.CustomSetting != null)
+    {
+        var data = ViewBag.CustomSetting as Dictionary<string, string>;
+        if (data is not null)
+        {
+            if (data["Couleur"] == "light")
+            {
+                <script>
+                    document.getElementById("dark-mode-check").removeAttribute("checked")
+                    document.getElementById("light-mode-check").setAttribute("checked","true");
+                   
+                </script>
+
+            }
+            else
+            {
+                <script>
+
+                    document.getElementById("light-mode-check").removeAttribute("checked")
+                    document.getElementById("dark-mode-check").setAttribute("checked","true");
+                   
+                </script>
+
+            }
+
+            if (data["TopBar"] == "light")
+            {
+                <script>
+
+                    document.getElementById("darktopbar-check").checked = true;
+
+                </script>
+
+            }
+            else
+            {
+                <script>
+
+                    document.getElementById("lighttopbar-check").checked = true;
+
+                </script>
+            }
+            if (data["UserInfo"] == "true")
+            {
+
+                <script>
+
+                    document.getElementById("sidebaruser-check").checked = true;
+
+                </script>
+            }
+            else
+            {
+                <script>
+
+                    document.getElementById("sidebaruser-check").checked = true;
+
+                </script>
+            }
+
+            if (data["NavColor"] == "light")
+            {
+                <script>
+
+                    document.getElementById("light").checked = true;
+
+                </script>
+            }
+            else if (data["NavColor"] == "dark")
+            {
+
+                <script>
+
+                    document.getElementById("dark").checked = true;
+
+                </script>
+            }
+            else if (data["NavColor"] == "gradient")
+            {
+
+                <script>
+
+                    document.getElementById("gradient").checked = true;
+
+                </script>
+            }
+            else
+            {
+                <script>
+
+                    document.getElementById("brand").checked = true;
+
+                </script>
+            }
+
+            if (data["NavWidth"] == "default")
+            {
+                <script>
+
+                    document.getElementById("default-size-check").checked = true;
+
+                </script>
+
+            }
+            else if (data["NavWidth"] == "condensed")
+            {
+                <script>
+
+                    document.getElementById("condensed-check").checked = true;
+
+                </script>
+
+            }
+            else
+            {
+                <script>
+
+                    document.getElementById("compact-check").checked = true;
+
+                </script>
+
+            }
+
+
+
+        }
+    }
+    <script>
+        function UpdateInput(e) {
+            if (e.name == "layout-color") {
+                if (document.getElementById("light-mode-check").checked) {
+                    document.getElementById("MyColor").value = "dark"
+                } else {
+                    document.getElementById("MyColor").value = "light"
+                }
+                alert(document.getElementById("MyColor").value);
+
+            } else if (e.name == "leftbar-color") {
+                alert("LeftColor");
+
+            } else if (e.name == "topbar-color") {
+                alert("TopColor");
+
+            } else if (e.name == "sidebar-user") {
+                alert("User");
+
+            } else {
+                alert("Width");
+            }
+        }
+        function Validate() {
+            document.getElementById("MyCustomForm").submit();
+        }
+    </script>
+*@
+
     @{
         if (ViewBag.Notif != null)
         {
             var notification = ViewBag.Notif as MyNotification;
             if(notification  != null){
-                    <script>
-                        GrowlNotification.notify({
-                            title: "@notification.Libelle",
-                            description: "@notification.Description",
-                            type: "@notification.Type",
-                            position: 'top-center',
-                            closeTimeout: @Constants.AnnimationDuration
-                        })
-                    </script>
+                            <script>
+                                GrowlNotification.notify({
+                                    title: "@notification.Libelle",
+                                    description: "@notification.Description",
+                                    type: "@notification.Type",
+                                    position: 'top-center',
+                                    closeTimeout: @Constants.AnnimationDuration
+                                })
+                            </script>
             }
         }
     }
