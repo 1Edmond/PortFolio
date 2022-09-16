@@ -43,23 +43,33 @@ public class HomeController : Controller
     {
 
         var (name, password) = (Request.Form["Pseudo"].ToString(), Request.Form["Password"].ToString());
-        HttpContext.Session.SetString("test", "Ok");
-        var route = HttpContext.Session.GetString("route")[1..];
-        var temp = JsonConvert.SerializeObject(new MyNotification()
+        var userInfo = _context.Settings.Where(d => new List<string>()
         {
-            Libelle = "Connexion",
-            Description = "Connexion reussie."
-        });
-        return route switch
-        {
-            "admin/projets" => RedirectToAction(actionName: "Projets", controllerName: "Admin",
-                            routeValues: new { notification = temp}),
-            "admin/categories" => RedirectToAction(actionName: "Categories", controllerName: "Admin",
-                            routeValues: new { notification = temp }),
-            _ => RedirectToAction(actionName: "Index", controllerName: "Admin",
-                                routeValues: new { notification = temp}),
-        };
+            "Pseudo",
+            "Password"
+        }.Contains(d.Name)).ToList();
 
+        if(name == userInfo.Where(d => d.Name == "Name").First().Value && password == userInfo.Where(s => s.Name == "Pseudo").First().Value)
+        {
+            HttpContext.Session.SetString("test", "Ok");
+            var route = HttpContext.Session.GetString("route")[1..];
+            var temp = JsonConvert.SerializeObject(new MyNotification()
+            {
+                Libelle = "Connexion",
+                Description = "Connexion reussie."
+            });
+            return route switch
+            {
+                "admin/projets" => RedirectToAction(actionName: "Projets", controllerName: "Admin",
+                                routeValues: new { notification = temp}),
+                "admin/categories" => RedirectToAction(actionName: "Categories", controllerName: "Admin",
+                                routeValues: new { notification = temp }),
+                _ => RedirectToAction(actionName: "Index", controllerName: "Admin",
+                                    routeValues: new { notification = temp}),
+            };
+
+        }
+        return View("../Auth/Login");
     }
 
 

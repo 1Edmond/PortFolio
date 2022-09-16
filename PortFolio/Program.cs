@@ -32,7 +32,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-
+app.UseHsts();
 app.UseSession();
 app.UseMiddleware<AdminMiddleware>();
 
