@@ -41,7 +41,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseHttpsRedirection();
+app.UseHsts();
 
 app.MapControllerRoute(
     name: "default",
