@@ -843,7 +843,7 @@ public class AdminController : Controller
     public async Task<ActionResult> UpdateSettings()
     {
         var (name,valeur,id) = (Request.Form["Name"].ToString(), Request.Form["Value"].ToString(), int.Parse(Request.Form["Id"].ToString()));
-        if(_context.Settings.Any(s => s.Name == name && s.Id == id))
+        if(_context.Settings.Any(s => s.Name == name && s.Id != id))
             return RedirectToAction(nameof(Settings), new
             {
                 notification = JsonConvert.SerializeObject(new MyNotification()

@@ -49,7 +49,7 @@ public class HomeController : Controller
             "Password"
         }.Contains(d.Name)).ToList();
 
-        if(name == userInfo.Where(d => d.Name == "Name").First().Value && password == userInfo.Where(s => s.Name == "Pseudo").First().Value)
+        if(name == userInfo.Where(d => d.Name == "Pseudo").First().Value && password == userInfo.Where(s => s.Name == "Password").First().Value)
         {
             HttpContext.Session.SetString("test", "Ok");
             var route = HttpContext.Session.GetString("route")[1..];
